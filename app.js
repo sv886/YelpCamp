@@ -5,7 +5,9 @@
 //#########################################################
 var express = require("express");
 var app = express();
+var bodyParser = require("body-parser");
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 
@@ -29,6 +31,16 @@ app.get("/campgrounds", function(req, res){
   ];
 
   res.render("campgrounds", {campgrounds: campgrounds});
+});
+
+app.post("/campgrounds", function(req, res){
+  // get data from form and add to campgrounds array
+  res.send("Yer at the post route cowboy!");
+  // redirect to campgrounds index
+});
+
+app.get("/campgrounds/new", function(req, res){
+  res.render("new");
 });
 
 //#########################################################
