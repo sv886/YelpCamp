@@ -39,7 +39,7 @@ app.post("/campgrounds", function(req, res){
   campgrounds.push(newCampground);
 
   // redirect to campgrounds index
-  // NOTE two /campground routes, #redirect defaults to redirect as a GET request
+  // NOTE two /campgrounds routes, #redirect defaults to redirect as a GET request
   res.redirect("/campgrounds");
 });
 
