@@ -28,7 +28,7 @@ app.get("/campgrounds", function(req, res){
     {name: "Schweady Lake", image: "http://img1.sunset.timeinc.net/sites/default/files/styles/1000x1000/public/image/2016/10/main/hoodview-campground-0510.jpg?itok=B8Eb65Uf"}
   ];
 
-  res.render("campgrounds");
+  res.render("campgrounds", {campgrounds: campgrounds});
 });
 
 //#########################################################
