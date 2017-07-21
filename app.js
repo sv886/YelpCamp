@@ -29,27 +29,7 @@ var campgroundSchema = new mongoose.Schema({
 // CRUD methods available once model is defined
 var Campground = mongoose.model("Campground", campgroundSchema);
 
-Campground.create(
-  {
-    name: "Granite Hill",
-    image: "http://hikethewhites.com/tarryhoweekend/fw04.jpg"
 
-  }, function(err, campground){
-    if(err){
-      console.log(err);
-    } else {
-      console.log("CREATED NEW CAMPGROUND");
-      console.log(campground);
-    }
-  });
-
-// temp global campgrounds array
-var campgrounds = [
-  {name: "Salmon Creek", image: "http://www.hike-nh.com/faq/safety/bear.jpg"},
-  {name: "Granite Hill", image: "http://hikethewhites.com/tarryhoweekend/fw04.jpg"},
-  {name: "Mount Moody", image: "http://www.dec.ny.gov/images/permits_ej_operations_images/kennethwilsonpav.jpg"},
-  {name: "Schweady Lake", image: "http://img1.sunset.timeinc.net/sites/default/files/styles/1000x1000/public/image/2016/10/main/hoodview-campground-0510.jpg?itok=B8Eb65Uf"}
-];
 
 //#########################################################
 //
@@ -61,7 +41,15 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
-  res.render("campgrounds", {campgrounds: campgrounds});
+  // Get all campgrounds from db
+  Campground.find({}, function(err, allCampgrounds){
+    if(err) {
+      console.log(err);
+    } else {
+      // render campgrounds ejs template with data retrieved from db
+      res.render("campgrounds", {campgrounds: allCampgrounds});
+    }
+  });
 });
 
 app.post("/campgrounds", function(req, res){
