@@ -14,6 +14,35 @@ mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
+//#########################################################
+//
+// Schema
+//
+//#########################################################
+// Create schema for campground
+var campgroundSchema = new mongoose.Schema({
+  name: String,
+  image: String
+});
+
+// Compile into model, naming convention is to capitalize model name,
+// CRUD methods available once model is defined
+var Campground = mongoose.model("Campground", campgroundSchema);
+
+Campground.create(
+  {
+    name: "Granite Hill",
+    image: "http://hikethewhites.com/tarryhoweekend/fw04.jpg"
+
+  }, function(err, campground){
+    if(err){
+      console.log(err);
+    } else {
+      console.log("CREATED NEW CAMPGROUND");
+      console.log(campground);
+    }
+  });
+
 // temp global campgrounds array
 var campgrounds = [
   {name: "Salmon Creek", image: "http://www.hike-nh.com/faq/safety/bear.jpg"},
