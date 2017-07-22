@@ -57,11 +57,17 @@ app.post("/campgrounds", function(req, res){
   var campgroundName = req.body.name;
   var campgroundImage = req.body.image;
   var newCampground = {name: campgroundName, image: campgroundImage};
-  campgrounds.push(newCampground);
+  // Create a new campground and save to db
+  Campground.create(newCampground, function(err, newlyCreated){
+    if(err) {
+      console.log(err);
+    } else {
+      // redirect to campgrounds index
+      // NOTE two /campgrounds routes, #redirect defaults to redirect as a GET request
+      res.redirect("/campgrounds");
+    }
+  })
 
-  // redirect to campgrounds index
-  // NOTE two /campgrounds routes, #redirect defaults to redirect as a GET request
-  res.redirect("/campgrounds");
 });
 
 app.get("/campgrounds/new", function(req, res){
