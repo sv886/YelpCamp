@@ -40,6 +40,7 @@ app.get("/", function(req, res){
   res.render("landing");
 });
 
+// Index
 app.get("/campgrounds", function(req, res){
   // Get all campgrounds from db
   Campground.find({}, function(err, allCampgrounds){
@@ -52,8 +53,9 @@ app.get("/campgrounds", function(req, res){
   });
 });
 
+// Create
 app.post("/campgrounds", function(req, res){
-  // get data from form and add to campgrounds array
+  // get data from form
   var campgroundName = req.body.name;
   var campgroundImage = req.body.image;
   var newCampground = {name: campgroundName, image: campgroundImage};
@@ -70,8 +72,16 @@ app.post("/campgrounds", function(req, res){
 
 });
 
+// New
 app.get("/campgrounds/new", function(req, res){
   res.render("new");
+});
+
+// Show (Must follow new or new will be treated as an id in URL rendering show)
+app.get("/campgrounds/:id", function(req,res){
+  // find campground with provided id
+  // render show template with that campground
+  res.send("SHOW PAGE");
 });
 
 //#########################################################
