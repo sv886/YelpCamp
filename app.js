@@ -59,7 +59,13 @@ app.post("/campgrounds", function(req, res){
   // get data from form
   var campgroundName = req.body.name;
   var campgroundImage = req.body.image;
-  var newCampground = {name: campgroundName, image: campgroundImage};
+  var campgroundDescription = req.body.description;
+  var newCampground =
+    {
+      name: campgroundName,
+      image: campgroundImage,
+      description: campgroundDescription
+    };
   // Create a new campground and save to db
   Campground.create(newCampground, function(err, newlyCreated){
     if(err) {
