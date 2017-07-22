@@ -22,7 +22,8 @@ app.set("view engine", "ejs");
 // Create schema for campground
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 
 // Compile into model, naming convention is to capitalize model name,
@@ -48,7 +49,7 @@ app.get("/campgrounds", function(req, res){
       console.log(err);
     } else {
       // render campgrounds ejs template with data retrieved from db
-      res.render("campgrounds", {campgrounds: allCampgrounds});
+      res.render("index", {campgrounds: allCampgrounds});
     }
   });
 });
@@ -80,8 +81,14 @@ app.get("/campgrounds/new", function(req, res){
 // Show (Must follow new or new will be treated as an id in URL rendering show)
 app.get("/campgrounds/:id", function(req,res){
   // find campground with provided id
-  // render show template with that campground
-  res.send("SHOW PAGE");
+  Campground.findById(req.params.id, function(err, foundCampground){
+    if(err) {
+      console.log(err);
+    } else {
+      // render show template with that campground
+      res.render("show", {campground: foundCampground});
+    }
+  });
 });
 
 //#########################################################
