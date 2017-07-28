@@ -6,29 +6,14 @@
 var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose")
+    mongoose   = require("mongoose"),
+    Campground = require("./models/campground")
 
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-
-//#########################################################
-//
-// Schema
-//
-//#########################################################
-// Create schema for campground
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-
-// Compile into model, naming convention is to capitalize model name,
-// CRUD methods available once model is defined
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 
 
