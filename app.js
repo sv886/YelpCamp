@@ -73,8 +73,9 @@ app.get("/campgrounds/new", function(req, res){
 
 // Show (Must follow new or new will be treated as an id in URL rendering show)
 app.get("/campgrounds/:id", function(req,res){
-  // find campground with provided id
-  Campground.findById(req.params.id, function(err, foundCampground){
+  // find campground with provided id, populate associated comments, then
+  // execute query
+  Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
     if(err) {
       console.log(err);
     } else {
