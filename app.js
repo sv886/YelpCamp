@@ -8,6 +8,7 @@ var express    = require("express"),
     bodyParser = require("body-parser"),
     mongoose   = require("mongoose"),
     Campground = require("./models/campground"),
+    Comment    = require("./models/comment"),
     seedDB     = require("./seeds")
 
 seedDB();
@@ -96,6 +97,31 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
     }
   });
 });
+
+app.post("/campgrounds/:id/comments", function(req, res){
+  // lookup campground using id
+  Campground.findById(req.params.id, function(err, campground){
+    if(err) {
+      console.log("Error finding campground during comment post");
+    } else {
+      // create new comment
+      Comment.create(req.body.comment, function(err, comment){
+        if(err) {
+          console.log("Error creating comment during comment post");
+        } else {
+          // connect new comment
+          campground.comments.push(comment);
+          // save updated campground
+          campground.save();
+          // redirect to show
+          res.redirect("/campgrounds/" + campground._id);
+        }
+      });
+    }
+  });
+});
+
+
 
 //#########################################################
 //
