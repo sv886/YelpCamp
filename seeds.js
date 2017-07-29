@@ -7,17 +7,17 @@ var data = [
     {
       name: "Rocky Top",
       image: "https://www.fs.usda.gov/Internet/FSE_MEDIA/stelprdb5259404.jpg",
-      description: "Hike hard, breathe harder."
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet fermentum est, sit amet bibendum dui iaculis a. Phasellus tempor enim nunc, et ultrices lectus suscipit non. Fusce laoreet scelerisque tincidunt. Pellentesque purus tortor, gravida pulvinar nibh id, ullamcorper commodo arcu. Donec tempus neque ac dolor blandit tincidunt. Donec non ex eu sapien pretium vestibulum non sit amet erat. Maecenas faucibus sapien eget elit porttitor aliquet."
     },
     {
       name: "Picnic Peak",
       image: "http://www.dec.ny.gov/images/permits_ej_operations_images/kennethwilsonpav.jpg",
-      description: "Feed the bears!"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet fermentum est, sit amet bibendum dui iaculis a. Phasellus tempor enim nunc, et ultrices lectus suscipit non. Fusce laoreet scelerisque tincidunt. Pellentesque purus tortor, gravida pulvinar nibh id, ullamcorper commodo arcu. Donec tempus neque ac dolor blandit tincidunt. Donec non ex eu sapien pretium vestibulum non sit amet erat. Maecenas faucibus sapien eget elit porttitor aliquet."
     },
     {
       name: "Mosquito Mountain",
       image: "https://www.threeriversparks.org/sites/default/files/2017-03/CL_camping_Billboard_01.jpg",
-      description: "BZZZzzzzZZZzZzZZZzzzzZZ"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet fermentum est, sit amet bibendum dui iaculis a. Phasellus tempor enim nunc, et ultrices lectus suscipit non. Fusce laoreet scelerisque tincidunt. Pellentesque purus tortor, gravida pulvinar nibh id, ullamcorper commodo arcu. Donec tempus neque ac dolor blandit tincidunt. Donec non ex eu sapien pretium vestibulum non sit amet erat. Maecenas faucibus sapien eget elit porttitor aliquet."
     }
 ]
 
