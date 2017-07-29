@@ -3,7 +3,15 @@ var mongoose = require("mongoose");
 var campgroundSchema = new mongoose.Schema({
   name: String,
   image: String,
-  description: String
+  description: String,
+  // Establish model association. The comments attribute will be
+  // an array of comment object IDs.
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 // Compile into model, naming convention is to capitalize model name,

@@ -7,8 +7,10 @@ var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
     mongoose   = require("mongoose"),
-    Campground = require("./models/campground")
+    Campground = require("./models/campground"),
+    seedDB     = require("./seeds")
 
+seedDB();
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
 
@@ -71,8 +73,9 @@ app.get("/campgrounds/new", function(req, res){
 
 // Show (Must follow new or new will be treated as an id in URL rendering show)
 app.get("/campgrounds/:id", function(req,res){
-  // find campground with provided id
-  Campground.findById(req.params.id, function(err, foundCampground){
+  // find campground with provided id, populate associated comments, then
+  // execute query
+  Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
     if(err) {
       console.log(err);
     } else {
