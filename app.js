@@ -109,7 +109,7 @@ app.get("/campgrounds/:id", function(req,res){
 });
 
 // Comments Routes ========================================
-app.get("/campgrounds/:id/comments/new", function(req, res){
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res){
   // Find campground by id
   Campground.findById(req.params.id, function(err, campground){
     if(err) {
@@ -120,7 +120,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
   });
 });
 
-app.post("/campgrounds/:id/comments", function(req, res){
+app.post("/campgrounds/:id/comments", isLoggedIn, function(req, res){
   // lookup campground using id
   Campground.findById(req.params.id, function(err, campground){
     if(err) {
@@ -183,7 +183,15 @@ app.get("/logout", function(req, res){
   // Simple one-liner with passport
   req.logout();
   res.redirect("campgrounds");
-})
+});
+
+// define login check middleware function
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/login");
+}
 
 //#########################################################
 //
