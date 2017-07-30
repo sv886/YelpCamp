@@ -178,6 +178,12 @@ app.post("/login", passport.authenticate("local",
     // middleware handling routing above
 });
 
+// Logout
+app.get("/logout", function(req, res){
+  // Simple one-liner with passport
+  req.logout();
+  res.redirect("campgrounds");
+})
 
 //#########################################################
 //
