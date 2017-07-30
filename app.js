@@ -59,7 +59,7 @@ app.get("/campgrounds", function(req, res){
       console.log(err);
     } else {
       // render campgrounds ejs template with data retrieved from db
-      res.render("campgrounds/index", {campgrounds: allCampgrounds});
+      res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});
     }
   });
 });
