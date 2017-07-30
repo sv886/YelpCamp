@@ -40,7 +40,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+// Make currentUser available in every route
+app.use(function(req, res, next){
+  // #res.locals will pass currentUser into all templates
+  res.locals.currentUser = req.user;
+  // Make sure to add #next to continue on to next middleware
+  // which is the route handler in most cases
+  next();
+});
 
 //#########################################################
 //
@@ -59,7 +66,7 @@ app.get("/campgrounds", function(req, res){
       console.log(err);
     } else {
       // render campgrounds ejs template with data retrieved from db
-      res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});
+      res.render("campgrounds/index", {campgrounds: allCampgrounds});
     }
   });
 });
