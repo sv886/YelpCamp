@@ -144,6 +144,7 @@ app.post("/campgrounds/:id/comments", function(req, res){
 });
 
 // Auth Routes ========================================
+// Register
 app.get("/register", function(req, res){
   res.render("register");
 });
@@ -163,6 +164,19 @@ app.post("/register", function(req, res){
   });
 });
 
+// Login
+app.get("/login", function(req, res){
+  res.render("login");
+});
+
+// app.post("login", middleware(passport authenticates form input againts db values), callback)
+app.post("/login", passport.authenticate("local",
+  {
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login"
+  }), function(req, res){
+    // middleware handling routing above
+});
 
 
 //#########################################################
