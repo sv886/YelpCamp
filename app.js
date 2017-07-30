@@ -3,13 +3,16 @@
 // Setup
 //
 //#########################################################
-var express    = require("express"),
-    app        = express(),
-    bodyParser = require("body-parser"),
-    mongoose   = require("mongoose"),
-    Campground = require("./models/campground"),
-    Comment    = require("./models/comment"),
-    seedDB     = require("./seeds")
+var express       = require("express"),
+    app           = express(),
+    bodyParser    = require("body-parser"),
+    mongoose      = require("mongoose"),
+    passport      = require("passport"),
+    LocalStrategy = require("passport-local"),
+    Campground    = require("./models/campground"),
+    Comment       = require("./models/comment"),
+    User          = require("./models/user")
+    seedDB        = require("./seeds")
 
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
