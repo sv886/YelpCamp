@@ -11,6 +11,7 @@ var express       = require("express"),
     LocalStrategy = require("passport-local"),
     Campground    = require("./models/campground"),
     Comment       = require("./models/comment"),
+    User          = require("./models/user")
     seedDB        = require("./seeds")
 
 // Connect to yelp_camp db (initial run will create db)
