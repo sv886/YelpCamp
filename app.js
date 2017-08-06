@@ -21,12 +21,6 @@ var indexRoutes      = require("./routes/index")
     commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
 
-// Use required route files
-app.use(indexRoutes);
-app.use(commentRoutes);
-app.use(campgroundRoutes);
-
-
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
 
@@ -61,6 +55,13 @@ app.use(function(req, res, next){
   // which is the route handler in most cases
   next();
 });
+
+// Use required route files
+// NOTE placement order is important here, must declare use
+// after currentUser code above to avoid 'esc is not a function' error.
+app.use(indexRoutes);
+app.use(commentRoutes);
+app.use(campgroundRoutes);
 
 
 
