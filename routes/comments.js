@@ -5,6 +5,7 @@ var router = express.Router({mergeParams: true});
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
 
+// New
 router.get("/new", isLoggedIn, function(req, res){
   // Find campground by id
   Campground.findById(req.params.id, function(err, campground){
@@ -16,6 +17,7 @@ router.get("/new", isLoggedIn, function(req, res){
   });
 });
 
+// Create
 router.post("/", isLoggedIn, function(req, res){
   // lookup campground using id
   Campground.findById(req.params.id, function(err, campground){
