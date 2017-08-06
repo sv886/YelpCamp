@@ -1,5 +1,8 @@
+var express = require("express");
+var router = express.Router();
+
 // Index
-app.get("/campgrounds", function(req, res){
+router.get("/campgrounds", function(req, res){
   // Get all campgrounds from db
   Campground.find({}, function(err, allCampgrounds){
     if(err) {
@@ -12,7 +15,7 @@ app.get("/campgrounds", function(req, res){
 });
 
 // Create
-app.post("/campgrounds", function(req, res){
+router.post("/campgrounds", function(req, res){
   // get data from form
   var campgroundName = req.body.name;
   var campgroundImage = req.body.image;
@@ -37,12 +40,12 @@ app.post("/campgrounds", function(req, res){
 });
 
 // New
-app.get("/campgrounds/new", function(req, res){
+router.get("/campgrounds/new", function(req, res){
   res.render("campgrounds/new");
 });
 
 // Show (Must follow new or new will be treated as an id in URL rendering show)
-app.get("/campgrounds/:id", function(req,res){
+router.get("/campgrounds/:id", function(req,res){
   // find campground with provided id, populate associated comments, then
   // execute query
   Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
@@ -54,3 +57,5 @@ app.get("/campgrounds/:id", function(req,res){
     }
   });
 });
+
+module.exports = router;

@@ -1,14 +1,17 @@
+var express = require("express");
+var router = express.Router();
+
 // Root
-app.get("/", function(req, res){
+router.get("/", function(req, res){
   res.render("landing");
 });
 
 // Register
-app.get("/register", function(req, res){
+router.get("/register", function(req, res){
   res.render("register");
 });
 
-app.post("/register", function(req, res){
+router.post("/register", function(req, res){
   var newUser = new User({username: req.body.username});
   // Passport's #register will save new user obj and hashed password
   User.register(newUser, req.body.password, function(err, user){
@@ -24,12 +27,12 @@ app.post("/register", function(req, res){
 });
 
 // Login
-app.get("/login", function(req, res){
+router.get("/login", function(req, res){
   res.render("login");
 });
 
 // app.post("login", middleware(passport authenticates form input againts db values), callback)
-app.post("/login", passport.authenticate("local",
+router.post("/login", passport.authenticate("local",
   {
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
@@ -38,7 +41,7 @@ app.post("/login", passport.authenticate("local",
 });
 
 // Logout
-app.get("/logout", function(req, res){
+router.get("/logout", function(req, res){
   // Simple one-liner with passport
   req.logout();
   res.redirect("campgrounds");
@@ -51,3 +54,5 @@ function isLoggedIn(req, res, next){
   }
   res.redirect("/login");
 }
+
+module.exports = router;
