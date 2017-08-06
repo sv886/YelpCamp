@@ -8,14 +8,24 @@ var express       = require("express"),
     bodyParser    = require("body-parser"),
     mongoose      = require("mongoose"),
     passport      = require("passport"),
-    LocalStrategy = require("passport-local"),
-    // Models/Seeds
-    Campground    = require("./models/campground"),
+    LocalStrategy = require("passport-local")
+
+// Models/Seeds
+var Campground    = require("./models/campground"),
     Comment       = require("./models/comment"),
-    User          = require("./models/user")
+    User          = require("./models/user"),
     seedDB        = require("./seeds")
-    // Routes
-    
+
+// Routes
+var indexRoutes      = require("./routes/index")
+    commentRoutes    = require("./routes/comments"),
+    campgroundRoutes = require("./routes/campgrounds"),
+
+// Use required route files
+app.use(indexRoutes);
+app.use(commentRoutes);
+app.use(campgroundRoutes);
+
 
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
@@ -51,6 +61,8 @@ app.use(function(req, res, next){
   // which is the route handler in most cases
   next();
 });
+
+
 
 //#########################################################
 //
