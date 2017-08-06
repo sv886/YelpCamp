@@ -15,18 +15,27 @@ router.get("/", function(req, res){
   });
 });
 
+// New
+router.get("/new", isLoggedIn, function(req, res){
+  res.render("campgrounds/new");
+});
+
 // Create
-router.post("/", function(req, res){
+router.post("/", isLoggedIn, function(req, res){
   // get data from form
   var campgroundName = req.body.name;
   var campgroundImage = req.body.image;
   var campgroundDescription = req.body.description;
-  var newCampground =
-    {
-      name: campgroundName,
-      image: campgroundImage,
-      description: campgroundDescription
-    };
+  var campgroundAuthor = {
+    id: req.user._id,
+    username: req.user.username
+  };
+  var newCampground = {
+    name: campgroundName,
+    image: campgroundImage,
+    description: campgroundDescription,
+    author: campgroundAuthor
+  };
   // Create a new campground and save to db
   Campground.create(newCampground, function(err, newlyCreated){
     if(err) {
@@ -38,11 +47,6 @@ router.post("/", function(req, res){
     }
   })
 
-});
-
-// New
-router.get("/new", function(req, res){
-  res.render("campgrounds/new");
 });
 
 // Show (Must follow new or new will be treated as an id in URL rendering show)
