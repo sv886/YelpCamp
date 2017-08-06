@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var Campground = require("../models/campground");
 
 // Index
 router.get("/campgrounds", function(req, res){
@@ -57,5 +58,13 @@ router.get("/campgrounds/:id", function(req,res){
     }
   });
 });
+
+// define login check middleware function
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/login");
+}
 
 module.exports = router;
