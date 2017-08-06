@@ -59,9 +59,9 @@ app.use(function(req, res, next){
 // Use required route files
 // NOTE placement order is important here, must declare use
 // after currentUser code above to avoid 'esc is not a function' error.
-app.use(indexRoutes);
-app.use(commentRoutes);
-app.use(campgroundRoutes);
+app.use("/", indexRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/campgrounds", campgroundRoutes);
 
 
 
