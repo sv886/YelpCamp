@@ -12,15 +12,15 @@ var express        = require("express"),
     methodOverride = require("method-override")
 
 // Models/Seeds
-var Campground    = require("./models/campground"),
-    Comment       = require("./models/comment"),
-    User          = require("./models/user"),
-    seedDB        = require("./seeds")
+var Campground = require("./models/campground"),
+    Comment    = require("./models/comment"),
+    User       = require("./models/user"),
+    seedDB     = require("./seeds")
 
 // Routes
-var indexRoutes      = require("./routes/index")
+var indexRoutes      = require("./routes/index"),
     commentRoutes    = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
+    campgroundRoutes = require("./routes/campgrounds")
 
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
