@@ -64,14 +64,29 @@ router.get("/:id", function(req, res){
 });
 
 // Edit
-router.get("/:id/edit", isLoggedIn, function(req, res){
-  Campground.findById(req.params.id, function(err, foundCampground){
-    if(err) {
-      res.redirect("/campgrounds");
-    } else {
-      res.render("campgrounds/edit", {campground: foundCampground});
-    }
-  });
+router.get("/:id/edit", function(req, res){
+  // is user logged in?
+  if(req.isAuthenticated()){
+    Campground.findById(req.params.id, function(err, foundCampground){
+      if(err) {
+        res.redirect("/campgrounds");
+      } else {
+        // does user own the campground?
+        // Note that if(foundCampground.author.id === req.user._id) is
+        // actually mongooseObject === String evaluation and will not work.
+        // Use mongoose's #equals method to accomplish auth check.
+        if(foundCampground.author.id.equals(req.user._id)) {
+          res.render("campgrounds/edit", {campground: foundCampground});
+        } else {
+          res.send("sry access denied");
+        }
+      }
+    });
+  } else {
+    // if not, redirect
+    console.log("plz login plz");
+    res.send("plz login plz");
+  }
 });
 
 // Update
