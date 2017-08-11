@@ -74,6 +74,19 @@ router.get("/:id/edit", isLoggedIn, function(req, res){
   });
 });
 
+// Update
+router.put("/:id", function(req, res){
+  // find and update campground
+  Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+    if(err) {
+      res.redirect("/campgrounds");
+    } else {
+      // redirect on successful edit
+      res.redirect("/campgrounds/" + req.params.id);
+    }
+  });
+});
+
 // define login check middleware function
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
