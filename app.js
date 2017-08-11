@@ -3,23 +3,24 @@
 // Setup
 //
 //#########################################################
-var express       = require("express"),
-    app           = express(),
-    bodyParser    = require("body-parser"),
-    mongoose      = require("mongoose"),
-    passport      = require("passport"),
-    LocalStrategy = require("passport-local")
+var express        = require("express"),
+    app            = express(),
+    bodyParser     = require("body-parser"),
+    mongoose       = require("mongoose"),
+    passport       = require("passport"),
+    LocalStrategy  = require("passport-local"),
+    methodOverride = require("method-override")
 
 // Models/Seeds
-var Campground    = require("./models/campground"),
-    Comment       = require("./models/comment"),
-    User          = require("./models/user"),
-    seedDB        = require("./seeds")
+var Campground = require("./models/campground"),
+    Comment    = require("./models/comment"),
+    User       = require("./models/user"),
+    seedDB     = require("./seeds")
 
 // Routes
-var indexRoutes      = require("./routes/index")
+var indexRoutes      = require("./routes/index"),
     commentRoutes    = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
+    campgroundRoutes = require("./routes/campgrounds")
 
 // Connect to yelp_camp db (initial run will create db)
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
@@ -27,6 +28,7 @@ mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true})
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
+app.use(methodOverride("_method"));
 seedDB();
 
 

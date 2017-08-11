@@ -50,7 +50,7 @@ router.post("/", isLoggedIn, function(req, res){
 });
 
 // Show (Must follow new or new will be treated as an id in URL rendering show)
-router.get("/:id", function(req,res){
+router.get("/:id", function(req, res){
   // find campground with provided id, populate associated comments, then
   // execute query
   Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
@@ -59,6 +59,30 @@ router.get("/:id", function(req,res){
     } else {
       // render show template with that campground
       res.render("campgrounds/show", {campground: foundCampground});
+    }
+  });
+});
+
+// Edit
+router.get("/:id/edit", isLoggedIn, function(req, res){
+  Campground.findById(req.params.id, function(err, foundCampground){
+    if(err) {
+      res.redirect("/campgrounds");
+    } else {
+      res.render("campgrounds/edit", {campground: foundCampground});
+    }
+  });
+});
+
+// Update
+router.put("/:id", function(req, res){
+  // find and update campground
+  Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+    if(err) {
+      res.redirect("/campgrounds");
+    } else {
+      // redirect on successful edit
+      res.redirect("/campgrounds/" + req.params.id);
     }
   });
 });
