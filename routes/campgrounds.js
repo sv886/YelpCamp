@@ -64,29 +64,10 @@ router.get("/:id", function(req, res){
 });
 
 // Edit
-router.get("/:id/edit", function(req, res){
-  // is user logged in?
-  if(req.isAuthenticated()){
-    Campground.findById(req.params.id, function(err, foundCampground){
-      if(err) {
-        res.redirect("/campgrounds");
-      } else {
-        // does user own the campground?
-        // Note that if(foundCampground.author.id === req.user._id) is
-        // actually mongooseObject === String evaluation and will not work.
-        // Use mongoose's #equals method to accomplish auth check.
-        if(foundCampground.author.id.equals(req.user._id)) {
-          res.render("campgrounds/edit", {campground: foundCampground});
-        } else {
-          res.send("sry access denied");
-        }
-      }
-    });
-  } else {
-    // if not, redirect
-    console.log("plz login plz");
-    res.send("plz login plz");
-  }
+router.get("/:id/edit", checkCampgroundOwnership, function(req, res){
+  Campground.findById(req.params.id, function(err, foundCampground){
+    res.render("campgrounds/edit", {campground: foundCampground});
+  });
 });
 
 // Update
@@ -114,6 +95,13 @@ router.delete("/:id", function(req, res){
   });
 });
 
+
+
+//#########################################################
+//
+// Middleware
+//
+//#########################################################
 // define login check middleware function
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
@@ -121,5 +109,30 @@ function isLoggedIn(req, res, next){
   }
   res.redirect("/login");
 }
+
+function checkCampgroundOwnership(req, res, next){
+  // is user logged in?
+  if(req.isAuthenticated()){
+    Campground.findById(req.params.id, function(err, foundCampground){
+      if(err) {
+        // sends user back to last successful request
+        res.redirect("back");
+      } else {
+        // Note that if(foundCampground.author.id === req.user._id) is
+        // actually mongooseObject === String evaluation and will not work.
+        // Use mongoose's #equals method to accomplish auth check.
+        if(foundCampground.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
+}
+
+
 
 module.exports = router;
