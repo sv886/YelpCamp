@@ -3,6 +3,8 @@
 // Middleware
 //
 //#########################################################
+var Comment       = require("../models/comment");
+var Campground    = require("../models/campground");
 var middlewareObj = {};
 
 middlewareObj.checkCampgroundOwnership = function(req, res, next){
