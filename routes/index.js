@@ -18,11 +18,12 @@ router.post("/register", function(req, res){
   // Passport's #register will save new user obj and hashed password
   User.register(newUser, req.body.password, function(err, user){
     if(err) {
-      console.log(err);
+      req.flash("error", err.message);
       return res.render("register");
     }
     // Login user, authenticate and redirect
     passport.authenticate("local")(req, res, function(){
+      req.flash("success", "Welcome to Yelpcamp, " + user.username + "!")
       res.redirect("/campgrounds");
     });
   });
@@ -49,13 +50,5 @@ router.get("/logout", function(req, res){
   req.flash("success", "Logged you out.");
   res.redirect("campgrounds");
 });
-
-// define login check middleware function
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  res.redirect("/login");
-}
 
 module.exports = router;
