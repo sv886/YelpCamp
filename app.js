@@ -55,6 +55,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
   // #res.locals will pass currentUser into all templates
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   // Make sure to add #next to continue on to next middleware
   // which is the route handler in most cases
   next();
