@@ -25,6 +25,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
   // get data from form
   var campgroundName = req.body.name;
+  var campgroundPrice = req.body.price;
   var campgroundImage = req.body.image;
   var campgroundDescription = req.body.description;
   var campgroundAuthor = {
@@ -33,6 +34,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
   };
   var newCampground = {
     name: campgroundName,
+    price: campgroundPrice,
     image: campgroundImage,
     description: campgroundDescription,
     author: campgroundAuthor
