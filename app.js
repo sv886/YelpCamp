@@ -77,6 +77,6 @@ app.use("/campgrounds", campgroundRoutes);
 // Server
 //
 //#########################################################
-app.listen(3000, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
   console.log("running on port 3stacks");
 });
